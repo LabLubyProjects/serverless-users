@@ -11,7 +11,7 @@ export class UpdateUserUseCase {
     const user = await this.userRepository.findByID(input.id);
     if(!user) return null;
 
-    if(input.password) input.password = this.hasher.hash(input.password);
+    if(input.password) input.password = await this.hasher.hash(input.password);
 
     const updatedUserData: UserModel = mergeObjectsUsingTruthyValues(user, input);
 

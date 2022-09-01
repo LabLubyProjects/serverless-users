@@ -14,7 +14,7 @@ export class CreateUserUseCase {
     const existsByCPF = await this.userRepository.findByCPF(input.cpf);
     if(existsByCPF) throw new DuplicatedFieldError('CPF');
     
-    const hashedPassword = this.hasher.hash(input.password);
+    const hashedPassword = await this.hasher.hash(input.password);
     const newUser: UserModel = {
       name: input.name,
       cpf: input.cpf,
