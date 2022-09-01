@@ -5,7 +5,7 @@ export class FindAllUsersUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
   async handle(input?: Pagination): Promise<FindAllUsersOutput> {
-    if(input) {
+    if(input?.page || input?.perPage) {
       const page = input.page ?? 0;
       const perPage = input.perPage ?? 10;
       const pagination = { page, perPage };
