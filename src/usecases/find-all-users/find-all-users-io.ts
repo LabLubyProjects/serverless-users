@@ -1,8 +1,11 @@
 import { UserModel } from "src/domain/users/user-model";
 
-export type FindAllUsersInput = {
+export type Pagination = {
   page?: number;
   perPage?: number;
 }
 
-export type FindAllUsersOutput = Omit<UserModel, 'password'>[]
+export interface FindAllUsersOutput {
+  pagination?: Pagination;
+  outputUsers: Omit<UserModel, 'password'>[];
+}
