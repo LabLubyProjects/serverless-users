@@ -7,4 +7,5 @@ export interface UserRepository {
   findByCPF(cpf: string): Promise<UserModel | null>;
   findByEmail(email: string): Promise<UserModel | null>;
   findByID(id: string): Promise<UserModel | null>;
+  findAll(pagination?:{ page?: number, perPage?: number }): Promise<UserModel[]>;
 }
