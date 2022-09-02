@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { AccessDeniedError } from "../../presentation/errors/access-denied";
 import { InvalidParamError } from "../../presentation/errors/invalid-param";
 import { MissingParamError } from "../../presentation/errors/missing-param";
 import { DuplicatedFieldError } from "../../usecases/errors/DuplicatedField";
 
-export const errorHandler = (error: Error, _req: Request, res: Response) => {
+export const errorHandler = (error: Error, _req: Request, res: Response, _next: NextFunction) => {
   const errorBody = { error: error.message };
   if(error instanceof InvalidParamError || error instanceof MissingParamError) return res.status(400).json(errorBody);
   if(error instanceof AccessDeniedError) return res.status(403).json(errorBody);
