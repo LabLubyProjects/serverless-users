@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "lib": ["ESNext"],
     "moduleResolution": "node",
@@ -9,9 +8,10 @@
     "sourceMap": true,
     "target": "ES2020",
     "strict": true,
+    "allowSyntheticDefaultImports": true,
     "outDir": "lib"
   },
-  "include": ["src/**/*.ts", "serverless.ts"],
+  "include": ["src/**/*.ts", "serverless.ts", "main.ts"],
   "exclude": [
     "node_modules/**/*",
     ".serverless/**/*",
