@@ -1,18 +1,20 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext"],
+    "lib": ["es2021"],
     "moduleResolution": "node",
-    "module": "ES2020",
+    "module": "ESNext",
+    "declaration": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "removeComments": true,
     "sourceMap": true,
-    "target": "ES2020",
+    "target": "ES2021",
+    "esModuleInterop": true,
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "outDir": "lib"
   },
-  "include": ["src/**/*.ts", "serverless.ts", "main.ts"],
+  "include": ["src/**/*.ts", "handler.ts", "main.ts"],
   "exclude": [
     "node_modules/**/*",
     ".serverless/**/*",
