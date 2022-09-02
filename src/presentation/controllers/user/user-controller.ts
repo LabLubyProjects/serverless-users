@@ -1,19 +1,18 @@
 import { HttpRequest, HttpResponse } from "../../protocols/http";
-import { createUserValidations } from "./user-controller-validations";
+import { createUserValidations, updateUserValidations } from "./user-controller-validations";
 
 export class UserController {
   static async createUser(httpRequest: HttpRequest): Promise<HttpResponse> {
     const { body } = httpRequest;
     const error = createUserValidations().validate(body);
     if(error) throw error;
-    
+
   }
 
   static async updateUser(httpRequest: HttpRequest): Promise<HttpResponse> {
-    return {
-      statusCode: 200,
-      body: 'something'
-    }
+    const { body } = httpRequest;
+    const error = updateUserValidations(Object.keys(body)).validate(body);
+    if(error) throw error;
   }
 
   static async findUserByID(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -24,10 +23,9 @@ export class UserController {
   }
 
   static async findAllUsers(httpRequest: HttpRequest): Promise<HttpResponse> {
-    return {
-      statusCode: 200,
-      body: 'something'
-    }
+    const { query } = httpRequest;
+    const error = updateUserValidations(Object.keys(query)).validate(query);
+    if(error) throw error;
   }
 
   static async deleteUser(httpRequest: HttpRequest): Promise<HttpResponse> {
