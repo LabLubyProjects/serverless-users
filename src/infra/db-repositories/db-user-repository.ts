@@ -69,9 +69,6 @@ export class DbUserRepository implements UserRepository {
   async findAll(pagination?: { page: number; perPage: number; } | undefined): Promise<UserModel[]> {
     if(!pagination) return prismaClient.user.findMany();
 
-    pagination.page = pagination.page ?? 0;
-    pagination.perPage = pagination.perPage ?? 10;
-
     return prismaClient.user.findMany({
       take: pagination.perPage,
       skip: pagination.page * pagination.perPage

@@ -8,7 +8,7 @@ export class FindAllUsersUseCase {
     if(input?.page || input?.perPage) {
       const page = input.page ?? 0;
       const perPage = input.perPage ?? 10;
-      const pagination = { page, perPage };
+      const pagination = { page: Number(page), perPage: Number(perPage) };
       const allUsers = await this.userRepository.findAll(pagination);
       const outputUsers = allUsers.map(user => {
         const { password, ...outputUser } = user;
