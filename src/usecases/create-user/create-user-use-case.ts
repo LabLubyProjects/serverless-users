@@ -1,8 +1,9 @@
 import { CreateUserInput, CreateUserOutput } from "./create-user-io";
-import { UserRepository } from "src/domain/users/user-repository";
 import { DuplicatedFieldError } from "../errors/DuplicatedField";
 import { Hasher } from "../protocols";
-import { UserModel } from "src/domain/users/user-model";
+import { UserModel } from "../../domain/users/user-model";
+import { UserRepository } from "../../domain/users/user-repository";
+
 
 export class CreateUserUseCase {
   constructor(private readonly userRepository: UserRepository, private readonly hasher: Hasher) {}

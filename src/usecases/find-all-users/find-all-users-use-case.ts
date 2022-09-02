@@ -1,4 +1,4 @@
-import { UserRepository } from "src/domain/users/user-repository";
+import { UserRepository } from "../../domain/users/user-repository";
 import { Pagination, FindAllUsersOutput } from "./find-all-users-io";
 
 export class FindAllUsersUseCase {

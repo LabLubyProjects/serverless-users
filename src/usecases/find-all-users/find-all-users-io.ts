@@ -1,4 +1,4 @@
-import { UserModel } from "src/domain/users/user-model";
+import { UserModel } from "../../domain/users/user-model";
 
 export type Pagination = {
   page?: number;

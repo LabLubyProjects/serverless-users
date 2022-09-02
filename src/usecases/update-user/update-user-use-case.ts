@@ -1,5 +1,6 @@
-import { UserModel } from "src/domain/users/user-model";
-import { UserRepository } from "src/domain/users/user-repository";
+
+import { UserModel } from "../../domain/users/user-model";
+import { UserRepository } from "../../domain/users/user-repository";
 import { Hasher } from "../protocols";
 import { mergeObjectsUsingTruthyValues } from "../utils";
 import { UpdateUserInput, UpdateUserOutput } from "./update-user-use-case-io";

@@ -1,4 +1,4 @@
-import { UserRepository } from "src/domain/users/user-repository";
+import { UserRepository } from "../../domain/users/user-repository";
 import { FindUserByIDOutput } from "./find-user-by-id-io";
 
 export class FindUserByIDUseCase {

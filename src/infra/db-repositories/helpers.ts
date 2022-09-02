@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-import { UserModel } from "src/domain/users/user-model";
+import { UserModel } from "../../domain/users/user-model";
 
 export const mapPrismaUserToDomainUserModel = (prismaUser: User): UserModel => {
   const userModel: UserModel = {
