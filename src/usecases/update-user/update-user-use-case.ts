@@ -1,6 +1,7 @@
 
 import { UserModel } from "../../domain/users/user-model";
 import { UserRepository } from "../../domain/users/user-repository";
+import { DuplicatedFieldError } from "../errors/DuplicatedField";
 import { Hasher } from "../protocols";
 import { mergeObjectsUsingTruthyValues } from "../utils";
 import { UpdateUserInput, UpdateUserOutput } from "./update-user-use-case-io";
@@ -11,6 +12,16 @@ export class UpdateUserUseCase {
   async handle(input: UpdateUserInput): Promise<UpdateUserOutput> {
     const user = await this.userRepository.findByID(input.id);
     if(!user) return null;
+
+   if(input.email) {
+    const existsByEmail = await this.userRepository.findByEmail(input.email);
+    if(existsByEmail) throw new DuplicatedFieldError('Email');
+   }
+    
+    if(input.cpf) {
+      const existsByCPF = await this.userRepository.findByCPF(input.cpf);
+    if(existsByCPF) throw new DuplicatedFieldError('CPF');
+    }
 
     if(input.password) input.password = await this.hasher.hash(input.password);
 
