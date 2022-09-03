@@ -12,7 +12,7 @@ export class DbUserRepository implements UserRepository {
     return mapPrismaUserToDomainUserModel(prismaUser);
   }
 
-  async update(user: UserModel): Promise<UserModel> {
+  async update(user: Partial<UserModel>): Promise<UserModel> {
     const updatedPrismaUser = await prismaClient.user.update({
       where: {
         id: user.id

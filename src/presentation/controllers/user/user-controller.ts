@@ -69,22 +69,23 @@ export class UserController {
     
     const findUserByIDUseCase = makeFindUserByIDUseCase();
     const findUserByIDUseCaseResult = await findUserByIDUseCase.handle(id);
-
+    
     if(!findUserByIDUseCaseResult) return {
       statusCode: 404,
       body: {
         message: 'Usuário não encontrado'
       }
     }
-
+    
     return {
-      statusCode: 200,
-      body: findUserByIDUseCaseResult
-    }
+        statusCode: 200,
+        body: findUserByIDUseCaseResult
+      }
   }
 
   static async findAllUsers(httpRequest: HttpRequest): Promise<HttpResponse> {
     const { query } = httpRequest;
+
     const error = updateUserValidations(Object.keys(query)).validate(query);
     if(error) throw error;
 
@@ -119,7 +120,7 @@ export class UserController {
 
     const ms_url = process.env.AUTH_MS_URL ?? 'http://localhost:4000';
 
-    const sendToAuthMS = await httpClient.put(`${ms_url}/users/${id}`);
+    const sendToAuthMS = await httpClient.delete(`${ms_url}/users/${id}`);
 
     if(sendToAuthMS.statusCode !== 204) throw new ServerError();
 

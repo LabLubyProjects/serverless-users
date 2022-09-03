@@ -15,13 +15,14 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
   const requestToAuthMS = await httpClient.post(`${ms_url}/verify-token`, {
     token
   });
-
   if (requestToAuthMS.body.isValid) {
     const userRepository = makeDbUserRepository()
     const user = await userRepository.findByID(requestToAuthMS.body.id);
+
     if(!user) return res.status(401).json({
       error: 'Unauthorized'
-    })
+    });
+    
     req.user = user;
     return next();
   }
