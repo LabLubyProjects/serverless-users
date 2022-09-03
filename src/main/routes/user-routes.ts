@@ -9,5 +9,5 @@ export default (router: Router): void => {
   router.get('/users/:id', auth, ExpressAdapter.adapt(UserController.findUserByID));
   router.get('/users', auth, ExpressAdapter.adapt(UserController.findAllUsers));
   router.delete('/users/:id', auth, ExpressAdapter.adapt(UserController.deleteUser));
-  router.get('/test-auth', auth, ExpressAdapter.adapt(UserController.createUser));
+  router.get('/test-auth', auth, ExpressAdapter.adapt(UserController.testAuth));
 }

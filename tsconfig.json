@@ -21,5 +21,12 @@
     ".webpack/**/*",
     "_warmup/**/*",
     ".vscode/**/*"
-  ]
+  ],
+  "typeRoots": [
+    "./src/@types",
+    "./node_modules/@types"
+  ],
+  "files": [
+    "./src/@types/express/index.d.ts"
+  ],
 }

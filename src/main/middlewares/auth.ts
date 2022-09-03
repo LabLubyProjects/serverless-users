@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from "express";
+import { makeDbUserRepository } from "../../infra/factories/repositories/db-user-repository-factory";
 import httpClient from "../../presentation/adapters/axios-adapter";
-import { AccessDeniedError } from "../../presentation/errors/access-denied";
-import { UnauthorizedError } from "../../presentation/errors/unauthorized";
 
-export const auth = async (req: Request, _res: Response, next: NextFunction) => {
+export const auth = async (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];
 
-  if(!token) throw new UnauthorizedError();
+  if(!token) return res.status(401).json({
+    error: 'Unauthorized'
+  })
 
   const ms_url = process.env.AUTH_MS_URL ?? 'http://localhost:4000';
 
@@ -15,7 +16,17 @@ export const auth = async (req: Request, _res: Response, next: NextFunction) => 
     token
   });
 
-  if (requestToAuthMS.body.data.isValid === true) next();
+  if (requestToAuthMS.body.isValid) {
+    const userRepository = makeDbUserRepository()
+    const user = await userRepository.findByID(requestToAuthMS.body.id);
+    if(!user) return res.status(401).json({
+      error: 'Unauthorized'
+    })
+    req.user = user;
+    return next();
+  }
 
-  throw new AccessDeniedError();
+  return res.status(403).json({
+    error: 'Access Denied'
+  });
 }

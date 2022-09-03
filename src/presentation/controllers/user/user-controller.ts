@@ -127,4 +127,14 @@ export class UserController {
       statusCode: 204
     }
   }
+
+  static testAuth(httpRequest: HttpRequest): HttpResponse {
+    const user = httpRequest.user;
+    return {
+      statusCode: 200,
+      body: {
+        message: `Bem-vindo ao serverless ${user?.name}.`
+      }
+    }
+  }
 }
