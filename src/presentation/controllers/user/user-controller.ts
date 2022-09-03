@@ -3,6 +3,8 @@ import { makeDeleteUserUseCase } from "../../../infra/factories/usecases/delete-
 import { makeFindAllUsersUseCase } from "../../../infra/factories/usecases/find-all-users-use-case-factory";
 import { makeFindUserByIDUseCase } from "../../../infra/factories/usecases/find-user-by-id-use-case-factory";
 import { makeUpdateUserUseCase } from "../../../infra/factories/usecases/update-user-use-case-factory";
+import httpClient from "../../adapters/axios-adapter";
+import { ServerError } from "../../errors/server-error";
 import { HttpRequest, HttpResponse } from "../../protocols/http";
 import { createUserValidations, updateUserValidations } from "./user-controller-validations";
 
@@ -13,9 +15,20 @@ export class UserController {
 
     if(error) throw error;
 
+    
     const createUserUseCase = makeCreateUserUseCase();
     const createUserUseCaseResponse = await createUserUseCase.handle(body);
+    
+    const ms_url = process.env.AUTH_MS_URL ?? 'http://localhost:4000'
 
+    const sendToAuthMS = await httpClient.post(ms_url, {
+      id: createUserUseCaseResponse.id,
+      email: createUserUseCaseResponse.email,
+      password: createUserUseCaseResponse.password
+    });
+
+    if(sendToAuthMS.statusCode !== 201) throw new ServerError();
+    
     return {
       statusCode: 201,
       body: createUserUseCaseResponse
@@ -36,6 +49,15 @@ export class UserController {
         message: 'Usuário não encontrado'
       }
     }
+
+    const ms_url = process.env.AUTH_MS_URL ?? 'http://localhost:4000';
+
+    const sendToAuthMS = await httpClient.put(`${ms_url}/${updateUserUseCaseResponse.id}`, {
+      email: updateUserUseCaseResponse.email,
+      password: updateUserUseCaseResponse.password
+    });
+
+    if(sendToAuthMS.statusCode !== 200) throw new ServerError();
 
     return {
       statusCode: 200,
@@ -95,6 +117,12 @@ export class UserController {
         message: 'Usuário não encontrado'
       }
     }
+
+    const ms_url = process.env.AUTH_MS_URL ?? 'http://localhost:4000';
+
+    const sendToAuthMS = await httpClient.put(`${ms_url}/${id}`);
+
+    if(sendToAuthMS.statusCode !== 204) throw new ServerError();
 
     return {
       statusCode: 204

@@ -23,7 +23,7 @@ export class CreateUserUseCase {
       password: hashedPassword
     };
 
-    const { password, ...outputUser } = await this.userRepository.create(newUser);
+    const outputUser = await this.userRepository.create(newUser);
     return outputUser;
   }
 }

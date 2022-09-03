@@ -27,7 +27,7 @@ export class UpdateUserUseCase {
 
     const updatedUserData: UserModel = mergeObjectsUsingTruthyValues(user, input);
 
-    const { password, ...outputUser } = await this.userRepository.update(updatedUserData);
+    const outputUser  = await this.userRepository.update(updatedUserData);
     return outputUser;
   }
 }
