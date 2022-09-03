@@ -1,4 +1,4 @@
-service: users-crud
+service: users
 frameworkVersion: "3"
 
 provider:
@@ -8,6 +8,8 @@ provider:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
     NODE_OPTIONS: --enable-source-maps --stack-trace-limit=1000 --experimental-modules --es-module-specifier-resolution=node
     DATABASE_URL: ${env:DATABASE_URL}
+    AUTH_MS_URL: ${env:AUTH_MS_URL}
+    JWT_SECRET: ${env:JWT_SECRET}
 
 useDotenv: true
 
@@ -18,10 +20,6 @@ functions:
       - httpApi: "*"
 
 package:
-  patterns:
-    - src/**
-    - handler.ts
-    - "!.git/**"
   individually: true
 
 plugins:

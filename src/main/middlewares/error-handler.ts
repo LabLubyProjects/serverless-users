@@ -13,5 +13,5 @@ export const errorHandler = (error: Error, _req: Request, res: Response, _next: 
   if(error instanceof AccessDeniedError) return res.status(403).json(errorBody);
   if(error instanceof DuplicatedFieldError) return res.status(409).json(errorBody);
   if(error instanceof ServerError) return res.status(500).json({ error: 'Internal Server Error'});
-  return res.status(500).json({ error: 'Internal Server Error'});
+  return res.status(500).json({ error: 'Internal Server Error' });
 }
