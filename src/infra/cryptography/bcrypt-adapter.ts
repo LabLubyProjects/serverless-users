@@ -1,4 +1,4 @@
-import * as bcryptjs from 'bcryptjs';
+import bcryptjs from 'bcryptjs';
 import { Hasher } from "../../usecases/protocols";
 
 export class BcryptAdapter implements Hasher {

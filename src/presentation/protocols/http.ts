@@ -1,3 +1,5 @@
+import { UserModel } from "../../domain/users/user-model";
+
 export interface HttpResponse {
   statusCode: number;
   body?: any;
@@ -8,6 +10,7 @@ export interface HttpRequest {
   headers?: any;
   params?: any;
   query?: any;
+  user?: UserModel;
 }
 
 export interface HttpClient {

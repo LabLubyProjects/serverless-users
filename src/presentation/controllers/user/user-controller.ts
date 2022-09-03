@@ -15,13 +15,12 @@ export class UserController {
 
     if(error) throw error;
 
-    
     const createUserUseCase = makeCreateUserUseCase();
     const createUserUseCaseResponse = await createUserUseCase.handle(body);
     
     const ms_url = process.env.AUTH_MS_URL ?? 'http://localhost:4000'
 
-    const sendToAuthMS = await httpClient.post(ms_url, {
+    const sendToAuthMS = await httpClient.post(`${ms_url}/users`, {
       id: createUserUseCaseResponse.id,
       email: createUserUseCaseResponse.email,
       password: createUserUseCaseResponse.password
@@ -52,7 +51,7 @@ export class UserController {
 
     const ms_url = process.env.AUTH_MS_URL ?? 'http://localhost:4000';
 
-    const sendToAuthMS = await httpClient.put(`${ms_url}/${updateUserUseCaseResponse.id}`, {
+    const sendToAuthMS = await httpClient.put(`${ms_url}/users/${updateUserUseCaseResponse.id}`, {
       email: updateUserUseCaseResponse.email,
       password: updateUserUseCaseResponse.password
     });
@@ -120,7 +119,7 @@ export class UserController {
 
     const ms_url = process.env.AUTH_MS_URL ?? 'http://localhost:4000';
 
-    const sendToAuthMS = await httpClient.put(`${ms_url}/${id}`);
+    const sendToAuthMS = await httpClient.put(`${ms_url}/users/${id}`);
 
     if(sendToAuthMS.statusCode !== 204) throw new ServerError();
 
